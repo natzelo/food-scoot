@@ -15,7 +15,7 @@ class FoodActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //binding = ActivityTrashBinding.inflate(layoutInflater)
         //setContentView(binding.root)
-        setContentView(R.layout.activity_trash)
+        setContentView(R.layout.activity_food)
         sharedPreferences = getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
         //binding.trash.text = sharedPreferences.getString("phone", "No phone")
 
