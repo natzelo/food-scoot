@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="start"
     tools:context=".activity.FoodActivity">
 
     <TextView
@@ -19,11 +20,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    &lt;!&ndash; It combines the menu layout and header layout together    &ndash;&gt;-->
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:headerLayout="@layout/draw">-->
+    <!-- It combines the menu layout and header layout together    -->
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu"
+        >
 
-<!--    </com.google.android.material.navigation.NavigationView>-->
+
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
