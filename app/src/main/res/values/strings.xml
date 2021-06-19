@@ -19,4 +19,6 @@
     <string name="menu_favorites">Favorites</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_faq">FAQ</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
 </resources>
