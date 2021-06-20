@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
@@ -63,14 +64,49 @@ class FoodlistFragment : Fragment() {
         val url = "http://13.235.250.119/v2/restaurants/fetch_result/"
 
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET, url, null, Response.Listener {
+            println("Response is $it")
 //            val success = it.getBoolean("success")
 //            if(success) {
-//                val dataArray = it.getJSONArray("data")
-//                for( i in 0 untill dataArray.length()) {
+//                val dataArray = data.getJSONArray("data")
+//                for( i in 0 until dataArray.length()) {
+//                    val restaurantObj = dataArray.getJSONObject(i)
+//                    val restaurant = Restaurant(
+//                        restaurantObj.getString("name"),
+//                        restaurantObj.getString("rating"),
+//                        restaurantObj.getString("cost_for_one"),
+//                        R.drawable.envelope
+//                    )
+//                    itemList.add(restaurant)
+//                    val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
 //
+//                    binding.recyclerView.adapter = recyclerAdapter
+//                    binding.recyclerView.layoutManager = layoutManager
 //                }
+//            } else {
+//                Toast.makeText(activity, "Some Error", Toast.LENGTH_LONG).show()
 //            }
-              println("Response is $it")
+//
+            val data = it.getJSONObject("data")
+            val isGood = data.getBoolean("success")
+            if(isGood) {
+                val dataArray = data.getJSONArray("data")
+                for( i in 0 until dataArray.length()) {
+                    val restaurantObj = dataArray.getJSONObject(i)
+                    val restaurant = Restaurant(
+                        restaurantObj.getString("name"),
+                        restaurantObj.getString("rating"),
+                        restaurantObj.getString("cost_for_one"),
+                        R.drawable.envelope
+                    )
+                    itemList.add(restaurant)
+                    val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
+
+                    binding.recyclerView.adapter = recyclerAdapter
+                    binding.recyclerView.layoutManager = layoutManager
+                }
+            } else {
+                Toast.makeText(activity, "Some Error", Toast.LENGTH_LONG).show()
+            }
 
         }, Response.ErrorListener {
                 println("Error is $it")
