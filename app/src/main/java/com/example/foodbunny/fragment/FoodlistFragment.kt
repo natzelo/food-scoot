@@ -29,7 +29,7 @@ class FoodlistFragment : Fragment() {
 
     private lateinit var binding:FragmentFoodlistBinding
     private lateinit var layoutManager: LinearLayoutManager
-    private  var itemList: ArrayList<Restaurant> = arrayListOf(Restaurant("name 1", "price 1", "rating 1", R.drawable.envelope), Restaurant("name 2", "rating 2", "price 2", R.drawable.envelope))
+    private  var itemList: ArrayList<Restaurant> = arrayListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,37 +55,13 @@ class FoodlistFragment : Fragment() {
         }
 
         layoutManager = LinearLayoutManager(activity)
-        val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
-
-        binding.recyclerView.adapter = recyclerAdapter
-        binding.recyclerView.layoutManager = layoutManager
 
         val queue = Volley.newRequestQueue(activity as Context)
         val url = "http://13.235.250.119/v2/restaurants/fetch_result/"
 
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET, url, null, Response.Listener {
             println("Response is $it")
-//            val success = it.getBoolean("success")
-//            if(success) {
-//                val dataArray = data.getJSONArray("data")
-//                for( i in 0 until dataArray.length()) {
-//                    val restaurantObj = dataArray.getJSONObject(i)
-//                    val restaurant = Restaurant(
-//                        restaurantObj.getString("name"),
-//                        restaurantObj.getString("rating"),
-//                        restaurantObj.getString("cost_for_one"),
-//                        R.drawable.envelope
-//                    )
-//                    itemList.add(restaurant)
-//                    val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
-//
-//                    binding.recyclerView.adapter = recyclerAdapter
-//                    binding.recyclerView.layoutManager = layoutManager
-//                }
-//            } else {
-//                Toast.makeText(activity, "Some Error", Toast.LENGTH_LONG).show()
-//            }
-//
+
             val data = it.getJSONObject("data")
             val isGood = data.getBoolean("success")
             if(isGood) {
@@ -99,10 +75,6 @@ class FoodlistFragment : Fragment() {
                         R.drawable.envelope
                     )
                     itemList.add(restaurant)
-                    val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
-
-                    binding.recyclerView.adapter = recyclerAdapter
-                    binding.recyclerView.layoutManager = layoutManager
                 }
             } else {
                 Toast.makeText(activity, "Some Error", Toast.LENGTH_LONG).show()
@@ -120,6 +92,12 @@ class FoodlistFragment : Fragment() {
         }
 
         queue.add(jsonObjectRequest)
+
+        val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
+
+        binding.recyclerView.adapter = recyclerAdapter
+        binding.recyclerView.layoutManager = layoutManager
+
         return binding.root
     }
 
