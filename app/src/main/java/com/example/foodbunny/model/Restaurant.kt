@@ -4,5 +4,5 @@ data class Restaurant(
     val name: String,
     val rating: String,
     val price: String,
-    val dish: Int
+    val dish: String
 )

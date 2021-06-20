@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodbunny.R
 import com.example.foodbunny.model.Restaurant
+import com.squareup.picasso.Picasso
 
 class FoodlistRecyclerAdapter(val context : Context, private val itemList: ArrayList<Restaurant> ) : RecyclerView.Adapter<FoodlistRecyclerAdapter.FoodlistViewHolder>() {
 
@@ -35,10 +36,9 @@ class FoodlistRecyclerAdapter(val context : Context, private val itemList: Array
 
     override fun onBindViewHolder(holder: FoodlistViewHolder, position: Int) {
         val restaurant = itemList[position]
-
         holder.restaurantName.text = restaurant.name
         holder.price.text = restaurant.price
         holder.rating.text = restaurant.rating
-        holder.dish.setImageResource(restaurant.dish)
+        Picasso.get().load(restaurant.dish).into(holder.dish)
     }
 }

@@ -72,7 +72,7 @@ class FoodlistFragment : Fragment() {
                         restaurantObj.getString("name"),
                         restaurantObj.getString("rating"),
                         restaurantObj.getString("cost_for_one"),
-                        R.drawable.envelope
+                        restaurantObj.getString("image_url")
                     )
                     itemList.add(restaurant)
                 }
