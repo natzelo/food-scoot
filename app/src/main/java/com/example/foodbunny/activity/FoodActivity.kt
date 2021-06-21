@@ -101,6 +101,7 @@ class FoodActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_layout, FoodlistFragment())
             .commit()
+        supportActionBar?.title = "Home"
     }
 
     override fun onBackPressed() {

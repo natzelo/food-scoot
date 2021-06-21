@@ -1,60 +1,76 @@
 package com.example.foodbunny.fragment
 
+
+import android.content.Context
+
+import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.foodbunny.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.foodbunny.adaptor.FoodlistRecyclerAdapter
+import com.example.foodbunny.database.RestaurantDatabase
+import com.example.foodbunny.database.RestaurantEntity
+import com.example.foodbunny.databinding.FragmentFoodlistBinding
+import com.example.foodbunny.model.Restaurant
+import java.util.ArrayList
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoriteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoriteFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var binding:FragmentFoodlistBinding
+    private lateinit var layoutManager: LinearLayoutManager
+    private  var itemList: ArrayList<Restaurant> = arrayListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        binding = FragmentFoodlistBinding.inflate(layoutInflater)
+        binding.progressLayout.visibility =  View.VISIBLE
+
+
+        layoutManager = LinearLayoutManager(activity)
+
+
+        val restaurantEntityList = DBAsyncTaskForFav(activity as Context).execute().get()
+
+        for(i in restaurantEntityList.indices) {
+            val restaurantEntity: RestaurantEntity = restaurantEntityList[i]
+
+            val restaurant = Restaurant(
+                restaurantEntity.restaurantId,
+                restaurantEntity.name,
+                restaurantEntity.rating,
+                restaurantEntity.price,
+                restaurantEntity.dish
+            )
+
+            itemList.add(restaurant)
+        }
+
+        val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
+
+        binding.recyclerView.adapter = recyclerAdapter
+        binding.recyclerView.layoutManager = layoutManager
+        binding.progressLayout.visibility = View.GONE
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoriteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+    class DBAsyncTaskForFav(val context: Context): AsyncTask<Void, Void, List<RestaurantEntity> >() {
+
+        private val db = Room.databaseBuilder(context, RestaurantDatabase::class.java, "restaurants-db" ).build()
+        override fun doInBackground(vararg params: Void?): List<RestaurantEntity> {
+
+            val result = db.restaurantDao().getAllRestaurants()
+            db.close()
+            return result
+        }
+
     }
+
 }
