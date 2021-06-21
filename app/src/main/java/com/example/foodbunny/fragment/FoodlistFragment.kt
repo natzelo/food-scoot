@@ -1,12 +1,10 @@
 package com.example.foodbunny.fragment
 
 import android.app.AlertDialog
-import android.app.VoiceInteractor
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +15,11 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.foodbunny.R
 import com.example.foodbunny.adaptor.FoodlistRecyclerAdapter
 import com.example.foodbunny.databinding.FragmentFoodlistBinding
 import com.example.foodbunny.model.Restaurant
 import com.example.foodbunny.util.ConnectionManager
+import org.json.JSONException
 import java.util.ArrayList
 
 
@@ -36,8 +34,8 @@ class FoodlistFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFoodlistBinding.inflate(layoutInflater)
-
-        // check internet connection here
+        binding.progressLayout.visibility =  View.VISIBLE
+        // check internet connection
         if(!ConnectionManager().checkConnectivity(activity as Context)) {
             // there is no internet internet
             val dialog = AlertDialog.Builder(activity as Context)
@@ -60,28 +58,40 @@ class FoodlistFragment : Fragment() {
         val url = "http://13.235.250.119/v2/restaurants/fetch_result/"
 
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET, url, null, Response.Listener {
-            println("Response is $it")
 
-            val data = it.getJSONObject("data")
-            val isGood = data.getBoolean("success")
-            if(isGood) {
-                val dataArray = data.getJSONArray("data")
-                for( i in 0 until dataArray.length()) {
-                    val restaurantObj = dataArray.getJSONObject(i)
-                    val restaurant = Restaurant(
-                        restaurantObj.getString("name"),
-                        restaurantObj.getString("rating"),
-                        restaurantObj.getString("cost_for_one"),
-                        restaurantObj.getString("image_url")
-                    )
-                    itemList.add(restaurant)
+            try {
+                val data = it.getJSONObject("data")
+                val isGood = data.getBoolean("success")
+                if(isGood) {
+                    binding.progressLayout.visibility = View.GONE
+                    val dataArray = data.getJSONArray("data")
+                    for( i in 0 until dataArray.length()) {
+                        val restaurantObj = dataArray.getJSONObject(i)
+                        val restaurant = Restaurant(
+                            restaurantObj.getString("name"),
+                            restaurantObj.getString("rating"),
+                            restaurantObj.getString("cost_for_one"),
+                            restaurantObj.getString("image_url")
+                        )
+                        itemList.add(restaurant)
+
+
+                        val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
+
+                        binding.recyclerView.adapter = recyclerAdapter
+                        binding.recyclerView.layoutManager = layoutManager
+
+                    }
+                } else {
+                    Toast.makeText(activity, "Some Error", Toast.LENGTH_LONG).show()
                 }
-            } else {
-                Toast.makeText(activity, "Some Error", Toast.LENGTH_LONG).show()
+            } catch (e: JSONException) {
+                Toast.makeText(activity, "Some Error", Toast.LENGTH_SHORT).show()
             }
 
+
         }, Response.ErrorListener {
-                println("Error is $it")
+                Toast.makeText(activity, "Some Error", Toast.LENGTH_SHORT).show()
         }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
@@ -92,13 +102,8 @@ class FoodlistFragment : Fragment() {
         }
 
         queue.add(jsonObjectRequest)
-
-        val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
-
-        binding.recyclerView.adapter = recyclerAdapter
-        binding.recyclerView.layoutManager = layoutManager
-
         return binding.root
     }
+
 
 }

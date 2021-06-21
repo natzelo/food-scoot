@@ -39,6 +39,6 @@ class FoodlistRecyclerAdapter(val context : Context, private val itemList: Array
         holder.restaurantName.text = restaurant.name
         holder.price.text = restaurant.price
         holder.rating.text = restaurant.rating
-        Picasso.get().load(restaurant.dish).into(holder.dish)
+        Picasso.get().load(restaurant.dish).error(R.drawable.logo_red).into(holder.dish)
     }
 }

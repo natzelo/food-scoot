@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.example.foodbunny.R
@@ -28,10 +27,7 @@ class FoodActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         setUpToolbar()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, FoodlistFragment())
-            .addToBackStack("Home")
-            .commit()
+        openFoodlistFragment()
 
 
 //    Set up an hamburger icon  which toggles the drawer
@@ -46,17 +42,13 @@ class FoodActivity : AppCompatActivity() {
         binding.navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, FoodlistFragment())
-                        .addToBackStack("Home")
-                        .commit()
+                    openFoodlistFragment()
                     supportActionBar?.title = "Home"
                     binding.drawer.closeDrawers()
                 }
                 R.id.fav -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frame_layout, FavoriteFragment())
-                        .addToBackStack("Favorites")
                         .commit()
                     supportActionBar?.title = "Favorites"
                     binding.drawer.closeDrawers()
@@ -64,7 +56,6 @@ class FoodActivity : AppCompatActivity() {
                 R.id.profile -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frame_layout, ProfileFragment())
-                        .addToBackStack("Profile")
                         .commit()
                     supportActionBar?.title = "Profile"
                     binding.drawer.closeDrawers()
@@ -72,7 +63,6 @@ class FoodActivity : AppCompatActivity() {
                 R.id.faq -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frame_layout, FaqFragment())
-                        .addToBackStack("FAQ")
                         .commit()
                     supportActionBar?.title = "FAQ"
                     binding.drawer.closeDrawers()
@@ -105,5 +95,20 @@ class FoodActivity : AppCompatActivity() {
             binding.drawer.openDrawer(GravityCompat.START)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun openFoodlistFragment(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, FoodlistFragment())
+            .commit()
+    }
+
+    override fun onBackPressed() {
+        when(supportFragmentManager.findFragmentById(R.id.frame_layout)) {
+            !is FoodlistFragment -> {
+                openFoodlistFragment()
+            }
+            else-> super.onBackPressed()
+        }
     }
 }
