@@ -11,6 +11,7 @@ import com.example.foodbunny.fragment.FragmentRestaurantMenu
 class RestaurantActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRestaurantBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRestaurantBinding.inflate(layoutInflater)
@@ -40,10 +41,6 @@ class RestaurantActivity : AppCompatActivity() {
     private fun setUpToolbar() {
         Log.i("Action bar track", "setUpToolbarCalled")
         setSupportActionBar(binding.toolbarRestaurantActivity)
-        if(supportActionBar == null) {
-            Log.i("Action bar track", "support action bar is null")
-        }
-
         supportActionBar?.title = "Menu"
     }
 
