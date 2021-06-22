@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.foodbunny.R
+import com.example.foodbunny.adaptor.RestaurantMenuRecyclerAdapter
+import com.example.foodbunny.database.OrderEntity
 import com.example.foodbunny.databinding.ActivityRestaurantBinding
 import com.example.foodbunny.fragment.FragmentRestaurantMenu
+
 
 class RestaurantActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRestaurantBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRestaurantBinding.inflate(layoutInflater)
@@ -23,6 +25,8 @@ class RestaurantActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+
+        RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
         val intent = Intent(this@RestaurantActivity, MainActivity::class.java)
         startActivity(intent)
         finish()

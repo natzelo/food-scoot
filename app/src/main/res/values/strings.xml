@@ -35,5 +35,6 @@
     <string name="faq_a5">. Yes. There are no delivery or handling charges.</string>
     <string name="faq_q6"> When I have to pay?</string>
     <string name="faq_a6">You will have to pay at the time of delivery as per the payment details we send to you via email</string>
+    <string name="add_btn_text">ADD</string>
 
 </resources>

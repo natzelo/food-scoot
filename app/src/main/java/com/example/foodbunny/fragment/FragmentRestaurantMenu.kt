@@ -21,7 +21,6 @@ import org.json.JSONException
 class FragmentRestaurantMenu : Fragment() {
 
     private val foods: ArrayList<Food> = arrayListOf()
-
     private lateinit var  binding: FragmentRestaurantMenuBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +49,13 @@ class FragmentRestaurantMenu : Fragment() {
                         val foodJSON = dataArray.getJSONObject(i)
 
                         val food = Food(
+                            foodJSON.getString("id"),
                             foodJSON.getString("name"),
                             foodJSON.getString("cost_for_one")
                         )
 
                         foods.add(food)
-                        val restaurantMenuAdapter = RestaurantMenuRecyclerAdapter(activity as Context, foods)
+                        val restaurantMenuAdapter = RestaurantMenuRecyclerAdapter(activity as Context, foods, restaurantId as String)
 
                         binding.restaurantMenuRecycler.layoutManager = layoutManager
                         binding.restaurantMenuRecycler.adapter = restaurantMenuAdapter
