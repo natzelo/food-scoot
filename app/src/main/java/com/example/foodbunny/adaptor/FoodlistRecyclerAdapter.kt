@@ -1,6 +1,7 @@
 package com.example.foodbunny.adaptor
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodbunny.R
+import com.example.foodbunny.activity.RestaurantActivity
 import com.example.foodbunny.database.DBAsyncTask
 import com.example.foodbunny.database.RestaurantEntity
 import com.example.foodbunny.model.Restaurant
@@ -21,6 +24,7 @@ class FoodlistRecyclerAdapter(val context : Context, private val itemList: Array
     // so that when we create the view holder and give our view to it, it knows what elements
     // are dynamic in the view
     class FoodlistViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        val restaurantCard: CardView = view.findViewById(R.id.restaurant_card)
         val restaurantName : TextView =  view.findViewById(R.id.restaurant_name)
         val rating: TextView = view.findViewById(R.id.rating)
         val price: TextView = view.findViewById(R.id.price_plate)
@@ -83,6 +87,13 @@ class FoodlistRecyclerAdapter(val context : Context, private val itemList: Array
 
             }
 
+        }
+
+        holder.restaurantCard.setOnClickListener {
+            val intent = Intent(context, RestaurantActivity::class.java)
+            intent.putExtra("restaurant_id", restaurant.restaurantId)
+            Log.i("ID TRACK", "${restaurant.restaurantId} adapter")
+            context.startActivity(intent)
         }
     }
 }

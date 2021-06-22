@@ -15,7 +15,7 @@ import com.example.foodbunny.fragment.FavoriteFragment
 import com.example.foodbunny.fragment.FoodlistFragment
 import com.example.foodbunny.fragment.ProfileFragment
 
-class FoodActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFoodBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -31,7 +31,7 @@ class FoodActivity : AppCompatActivity() {
 
 
 //    Set up an hamburger icon  which toggles the drawer
-        val actionBarDrawerToggle = ActionBarDrawerToggle(this@FoodActivity, binding.drawer, R.string.open_drawer, R.string.close_drawer)
+        val actionBarDrawerToggle = ActionBarDrawerToggle(this@MainActivity, binding.drawer, R.string.open_drawer, R.string.close_drawer)
 
 //        Pass the icon to the drawer listener so that it can change shape on events
         binding.drawer.addDrawerListener(actionBarDrawerToggle)

@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         if(phone == "8962151380" && password == "qwerty") {
             sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
             sharedPreferences.edit().putString("phone", phone).apply()
-            val intent = Intent(this@LoginActivity, FoodActivity::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
 
@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         val isLoggedIn:Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
 
         if(isLoggedIn) {
-            val intent = Intent(this@LoginActivity, FoodActivity::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

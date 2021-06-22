@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    tools:context=".activity.FoodActivity"
+    tools:context=".activity.MainActivity"
     android:id="@+id/drawer">
 
 
