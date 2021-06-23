@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.CartFragment">
+
+<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <com.google.android.material.appbar.AppBarLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:theme="@style/ThemeOverlay.AppCompat.Dark"-->
+<!--            app:elevation="0dp"-->
+<!--            >-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/card_toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                android:background="@color/app_orange"-->
+<!--                app:layout_scrollFlags="scroll|enterAlways"-->
+<!--                app:elevation="0dp"-->
+<!--                app:title="Cart" />-->
+
+<!--        </com.google.android.material.appbar.AppBarLayout>-->
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cart_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            />
+
+
+<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+
+
+
+</FrameLayout>

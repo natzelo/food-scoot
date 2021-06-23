@@ -19,6 +19,7 @@ class RestaurantActivity : AppCompatActivity() {
         binding = ActivityRestaurantBinding.inflate(layoutInflater)
         val restaurantId = intent.getStringExtra("restaurant_id")
         Log.i("ID TRACK", "$restaurantId activity")
+
         setUpToolbar()
         openMenu(restaurantId as String)
         setContentView(binding.root)

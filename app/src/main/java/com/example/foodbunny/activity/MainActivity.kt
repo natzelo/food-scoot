@@ -83,8 +83,6 @@ class MainActivity : AppCompatActivity() {
         // Displays the home button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-
     }
 
     // open the drawer when the the home button of the action bar is clicked

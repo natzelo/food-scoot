@@ -13,6 +13,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.foodbunny.R
 import com.example.foodbunny.adaptor.RestaurantMenuRecyclerAdapter
 import com.example.foodbunny.databinding.FragmentRestaurantMenuBinding
 import com.example.foodbunny.model.Food
@@ -81,6 +82,16 @@ class FragmentRestaurantMenu : Fragment() {
             }
         }
         queue.add(jsonObjectRequest)
+
+        binding.proceedToCard.setOnClickListener {
+
+            val bundle = Bundle()
+            bundle.putString("restaurant_id", restaurantId)
+            val cartFragment = CartFragment()
+            cartFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frame_layout_restaurant_activity, cartFragment).commit()
+        }
+
         return binding.root
     }
 
