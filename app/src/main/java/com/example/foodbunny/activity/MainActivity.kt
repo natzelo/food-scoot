@@ -10,10 +10,7 @@ import androidx.core.view.GravityCompat
 import com.example.foodbunny.R
 
 import com.example.foodbunny.databinding.ActivityFoodBinding
-import com.example.foodbunny.fragment.FaqFragment
-import com.example.foodbunny.fragment.FavoriteFragment
-import com.example.foodbunny.fragment.FoodlistFragment
-import com.example.foodbunny.fragment.ProfileFragment
+import com.example.foodbunny.fragment.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,6 +62,13 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.frame_layout, FaqFragment())
                         .commit()
                     supportActionBar?.title = "FAQ"
+                    binding.drawer.closeDrawers()
+                }
+                R.id.order_history -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, OrderHistoryFragment()
+                        ).commit()
+                    supportActionBar?.title = "Order History"
                     binding.drawer.closeDrawers()
                 }
 

@@ -9,6 +9,13 @@
         android:icon="@drawable/ic_fav"
         android:title="@string/menu_favorites"
         android:id="@+id/fav"/>
+
+    <item
+        android:title="@string/order_history"
+        android:id="@+id/order_history"
+        android:icon="@drawable/ic_history"
+        />
+
     <item
         android:icon="@drawable/ic_profile"
         android:title="@string/menu_profile"
