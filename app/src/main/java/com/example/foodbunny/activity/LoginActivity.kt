@@ -6,8 +6,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.foodbunny.R
 import com.example.foodbunny.databinding.ActivityLoginBinding
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,38 +29,64 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleLogin() {
-        val phone: String = binding.editTextPhone.text.toString()
-        val password: String = binding.editTextPasswordLogin.text.toString()
+        val jsonRequest = JSONObject()
+        jsonRequest.put("mobile_number", binding.loginPhone.text.toString())
+        jsonRequest.put("password", binding.loginPassword.text.toString())
+        val url = "http://13.235.250.119/v2/login/fetch_result"
 
-        if(phone == "8962151380" && password == "qwerty") {
-            sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-            sharedPreferences.edit().putString("phone", phone).apply()
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+        val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+            Response.Listener {
+                val data = it.getJSONObject("data")
+                if (data.getBoolean("success")) {
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("isLoggedIn", true)
+                    val person = data.getJSONObject("data")
+                    editor.putString("name", person.getString("name"))
+                    editor.putString("mobile_number", person.getString("mobile_number"))
+                    editor.putString("address", person.getString("address"))
+                    editor.putString("email", person.getString("email"))
+                    editor.apply()
 
-        } else {
-            Toast.makeText(applicationContext, "Invalid", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            },
+            Response.ErrorListener { }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                headers["token"] = "5fc57ce44a41aa"
+                return headers
+            }
+
         }
+
+        val queue = Volley.newRequestQueue(this@LoginActivity)
+        queue.add(jsonObjectRequest)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            binding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        binding.signUptextView.setOnClickListener { toRegister() }
-        binding.forgotPasswordTextView.setOnClickListener { toForgotPassword() }
-        binding.logInButton.setOnClickListener { handleLogin() }
+            binding.signUptextView.setOnClickListener { toRegister() }
+            binding.forgotPasswordTextView.setOnClickListener { toForgotPassword() }
+            binding.logInButton.setOnClickListener { handleLogin() }
 
-        sharedPreferences = getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
+            sharedPreferences =
+                getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
 
-        val isLoggedIn:Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
+            val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
 
-        if(isLoggedIn) {
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (isLoggedIn) {
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
-    }
+
+
+
 }

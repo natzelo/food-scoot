@@ -107,7 +107,10 @@ class MainActivity : AppCompatActivity() {
             !is FoodlistFragment -> {
                 openFoodlistFragment()
             }
-            else-> super.onBackPressed()
+            else-> {
+                finishAffinity()
+                super.onBackPressed()
+            }
         }
     }
 }

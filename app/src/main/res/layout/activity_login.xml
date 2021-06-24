@@ -51,13 +51,13 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/editTextPhone"
+                    app:layout_constraintEnd_toStartOf="@+id/login_phone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/smartphone" />
 
                 <EditText
-                    android:id="@+id/editTextPhone"
+                    android:id="@+id/login_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -80,13 +80,13 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/editTextPasswordLogin"
+                    app:layout_constraintEnd_toStartOf="@+id/login_password"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/padlock" />
 
                 <EditText
-                    android:id="@+id/editTextPasswordLogin"
+                    android:id="@+id/login_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
