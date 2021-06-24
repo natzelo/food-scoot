@@ -21,4 +21,7 @@ interface RestaurantDao {
 
     @Query("SELECT * FROM restaurants WHERE restaurantId = :id")
     fun getRestaurantById(id: String): RestaurantEntity?
+
+    @Query("DELETE FROM restaurants")
+    fun nukeTable()
 }

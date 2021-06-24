@@ -25,4 +25,9 @@
         android:title="@string/menu_faq"
         android:id="@+id/faq"/>
 
+    <item
+        android:title="@string/log_out"
+        android:id="@+id/log_out"
+        android:icon="@drawable/ic_logout" />
+
 </menu>

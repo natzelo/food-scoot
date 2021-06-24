@@ -1,16 +1,27 @@
 package com.example.foodbunny.activity
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.room.Room
 import com.example.foodbunny.R
+import com.example.foodbunny.adaptor.RestaurantMenuRecyclerAdapter
+import com.example.foodbunny.database.DBAsyncTask
+import com.example.foodbunny.database.OrderEntity
+import com.example.foodbunny.database.RestaurantDatabase
+import com.example.foodbunny.database.RestaurantEntity
 
 import com.example.foodbunny.databinding.ActivityFoodBinding
 import com.example.foodbunny.fragment.*
+import com.example.foodbunny.util.ConnectionManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,6 +83,27 @@ class MainActivity : AppCompatActivity() {
                     binding.drawer.closeDrawers()
                 }
 
+                R.id.log_out -> {
+
+
+                        val dialog = AlertDialog.Builder(this@MainActivity)
+                        dialog.setTitle("Log out?")
+                        dialog.setMessage("Your favorites restaurant list will be removed")
+                        dialog.setPositiveButton("Log Out"){ _, _ ->
+                            sharedPreferences.edit().clear().apply()
+                            RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@MainActivity, OrderEntity("dummy", "dummy"), 2 ).execute().get()
+                            DeleteFavRestaurants(this@MainActivity).execute().get()
+                            finishAffinity()
+                        }
+                        dialog.setNegativeButton("Cancel") { _, _ ->
+
+                        }
+
+                        dialog.create()
+                        dialog.show()
+
+                }
+
             }
             return@setNavigationItemSelectedListener true
         }
@@ -116,5 +148,15 @@ class MainActivity : AppCompatActivity() {
                 super.onBackPressed()
             }
         }
+    }
+
+    class DeleteFavRestaurants(val context: Context): AsyncTask<Void, Void,Boolean>() {
+        override fun doInBackground(vararg params: Void?): Boolean {
+            val db = Room.databaseBuilder(context, RestaurantDatabase::class.java, "restaurants-db").build()
+            db.restaurantDao().nukeTable()
+            db.close()
+            return true
+        }
+
     }
 }
