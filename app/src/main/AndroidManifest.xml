@@ -13,11 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodBunny">
-        <activity android:name=".activity.RestaurantActivity"
-            android:theme="@style/Theme.FoodBunny.NoActionBar"></activity>
+        <activity android:name=".activity.SetPasswordActivity"></activity>
+        <activity
+            android:name=".activity.RestaurantActivity"
+            android:theme="@style/Theme.FoodBunny.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/Theme.FoodBunny.NoActionBar"></activity>
+            android:theme="@style/Theme.FoodBunny.NoActionBar" />
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:theme="@style/Theme.FoodBunny.NoActionBar" />

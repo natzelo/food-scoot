@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.foodbunny.R
 import com.example.foodbunny.databinding.ActivityLoginBinding
+import org.json.JSONException
 import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
@@ -37,25 +38,37 @@ class LoginActivity : AppCompatActivity() {
 
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST, url, jsonRequest,
             Response.Listener {
-                val data = it.getJSONObject("data")
-                if (data.getBoolean("success")) {
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("isLoggedIn", true)
-                    val person = data.getJSONObject("data")
-                    editor.putString("name", person.getString("name"))
-                    editor.putString("mobile_number", person.getString("mobile_number"))
-                    editor.putString("address", person.getString("address"))
-                    editor.putString("email", person.getString("email"))
-                    editor.putString("user_id", person.getString("user_id"))
-                    Log.i("DEBUG",  "user id is ${person.getString("user_id")}")
-                    editor.apply()
 
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                Log.i("DEBUG", "main hu $it")
+                try {
+                    val data = it.getJSONObject("data")
+                    if (data.getBoolean("success")) {
+                        val editor = sharedPreferences.edit()
+                        editor.putBoolean("isLoggedIn", true)
+                        val person = data.getJSONObject("data")
+                        editor.putString("name", person.getString("name"))
+                        editor.putString("mobile_number", person.getString("mobile_number"))
+                        editor.putString("address", person.getString("address"))
+                        editor.putString("email", person.getString("email"))
+                        editor.putString("user_id", person.getString("user_id"))
+                        Log.i("DEBUG",  "user id is ${person.getString("user_id")}")
+                        editor.apply()
+
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Something went Wrong", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    Toast.makeText(this@LoginActivity, "Something went Wrong", Toast.LENGTH_SHORT).show()
                 }
+
+
             },
-            Response.ErrorListener { }) {
+            Response.ErrorListener {
+                Toast.makeText(this@LoginActivity, "Something went Wrong", Toast.LENGTH_SHORT).show()
+            }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
                 headers["Content-Type"] = "application/json"
