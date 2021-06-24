@@ -36,5 +36,5 @@
     <string name="faq_q6"> When I have to pay?</string>
     <string name="faq_a6">You will have to pay at the time of delivery as per the payment details we send to you via email</string>
     <string name="add_btn_text">ADD</string>
-
+    <string name="success_msg">Your Order has been placed successfully!</string>
 </resources>

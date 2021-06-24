@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.foodbunny.R
 import com.example.foodbunny.databinding.FragmentProfileBinding
 
@@ -26,7 +27,11 @@ class ProfileFragment : Fragment() {
             sharedPreferences =
                 activity?.getSharedPreferences( getString(R.string.shared_preferences), Context.MODE_PRIVATE )!!
 
-            binding.personNumber.text = sharedPreferences.getString("phone", "")
+            binding.personName.text = sharedPreferences.getString("name", "")
+            binding.personNumber.text = sharedPreferences.getString("mobile_number", "")
+            binding.personEmail.text = sharedPreferences.getString("email", "")
+            binding.personLocation.text = sharedPreferences.getString("address", "")
+            Toast.makeText(activity, " ID is ${sharedPreferences.getString("user_id", "")}", Toast.LENGTH_SHORT).show()
 
         }
 

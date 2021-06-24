@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
@@ -45,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("mobile_number", person.getString("mobile_number"))
                     editor.putString("address", person.getString("address"))
                     editor.putString("email", person.getString("email"))
+                    editor.putString("user_id", person.getString("user_id"))
+                    Log.i("DEBUG",  "user id is ${person.getString("user_id")}")
                     editor.apply()
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
