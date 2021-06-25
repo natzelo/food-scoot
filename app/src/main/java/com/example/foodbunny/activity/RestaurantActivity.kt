@@ -41,7 +41,7 @@ class RestaurantActivity : AppCompatActivity() {
 
     override fun onStop() {
         Log.i("DEBUG", "On Stop Called")
-        RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
+        //RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
         super.onStop()
     }
 
