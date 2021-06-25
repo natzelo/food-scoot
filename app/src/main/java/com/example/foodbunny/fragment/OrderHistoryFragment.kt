@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
@@ -67,9 +68,11 @@ class OrderHistoryFragment : Fragment() {
 
                         orderList.add(orderHistory)
                     }
-
-                    binding.orderHistoryRecycler.layoutManager = LinearLayoutManager(context)
+                    val layoutManager = LinearLayoutManager(context)
+                    binding.orderHistoryRecycler.layoutManager = layoutManager
                     binding.orderHistoryRecycler.adapter = OrderHistoryAdaptor(activity as Context, orderList)
+                    val dividerItemDecoration = DividerItemDecoration(binding.orderHistoryRecycler.context, layoutManager.orientation)
+                    binding.orderHistoryRecycler.addItemDecoration(dividerItemDecoration)
                     Log.i("DEBUG", orderList.toString())
 
                 } else {
