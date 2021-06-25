@@ -84,11 +84,12 @@ class FoodlistFragment : Fragment() {
                         )
                         itemList.add(restaurant)
 
+                        if(activity!= null) {
+                            recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
+                            binding.recyclerView.adapter = recyclerAdapter
+                            binding.recyclerView.layoutManager = layoutManager
+                        }
 
-                         recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
-
-                        binding.recyclerView.adapter = recyclerAdapter
-                        binding.recyclerView.layoutManager = layoutManager
 
                     }
                 } else {

@@ -15,8 +15,10 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.foodbunny.R
 import com.example.foodbunny.adaptor.RestaurantMenuRecyclerAdapter
+import com.example.foodbunny.database.OrderEntity
 import com.example.foodbunny.databinding.FragmentRestaurantMenuBinding
 import com.example.foodbunny.model.Food
+import com.google.gson.Gson
 import org.json.JSONException
 
 class FragmentRestaurantMenu : Fragment() {
@@ -85,12 +87,42 @@ class FragmentRestaurantMenu : Fragment() {
 
         binding.proceedToCard.setOnClickListener {
 
-            val bundle = Bundle()
-            bundle.putString("restaurant_id", restaurantId)
-            val cartFragment = CartFragment()
-            cartFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frame_layout_restaurant_activity, cartFragment).commit()
+            if(activity == null) {
+                Log.i( "DEBUG","Activity NULL")
+            } else {
+                val executor = RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(activity as Context, OrderEntity(restaurantId as String, "dummy"), 3)
+                val getter = executor.execute()
+                val orderEntity = getter.get()
+
+                if(orderEntity == null) {
+                    Log.i("DEBUG","Order entity null")
+                    Toast.makeText(activity,"Please select at least one dish", Toast.LENGTH_SHORT).show()
+                } else {
+                    val orderList: ArrayList<Food> = arrayListOf()
+                    orderList.addAll(
+                        Gson().fromJson(orderEntity.foodItems, Array<Food>::class.java).asList()
+                    )
+                    if(orderList.size == 0) {
+                        Toast.makeText(
+                            activity,
+                            "Please select at least one dish",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        val bundle = Bundle()
+                        bundle.putString("restaurant_id", restaurantId)
+                        val cartFragment = CartFragment()
+                        cartFragment.arguments = bundle
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frame_layout_restaurant_activity, cartFragment).commit()
+
+                    }
+
+                }
+            }
+
+
         }
+
 
         return binding.root
     }
