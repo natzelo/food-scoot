@@ -39,4 +39,5 @@
     <string name="success_msg">Your Order has been placed successfully!</string>
     <string name="order_history">Order History</string>
     <string name="log_out">Log Out</string>
+    <string name="sort_text">Sort</string>
 </resources>

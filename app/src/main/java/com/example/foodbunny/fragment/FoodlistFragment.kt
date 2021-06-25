@@ -7,17 +7,17 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.Settings
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.foodbunny.R
 import com.example.foodbunny.adaptor.FoodlistRecyclerAdapter
 import com.example.foodbunny.database.RestaurantDatabase
 import com.example.foodbunny.database.RestaurantEntity
@@ -25,7 +25,8 @@ import com.example.foodbunny.databinding.FragmentFoodlistBinding
 import com.example.foodbunny.model.Restaurant
 import com.example.foodbunny.util.ConnectionManager
 import org.json.JSONException
-import java.util.ArrayList
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class FoodlistFragment : Fragment() {
@@ -33,6 +34,7 @@ class FoodlistFragment : Fragment() {
     private lateinit var binding:FragmentFoodlistBinding
     private lateinit var layoutManager: LinearLayoutManager
     private  var itemList: ArrayList<Restaurant> = arrayListOf()
+    private lateinit var recyclerAdapter: RecyclerView.Adapter<FoodlistRecyclerAdapter.FoodlistViewHolder>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +42,7 @@ class FoodlistFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentFoodlistBinding.inflate(layoutInflater)
         binding.progressLayout.visibility =  View.VISIBLE
+        setHasOptionsMenu(true)
         // check internet connection
         if(!ConnectionManager().checkConnectivity(activity as Context)) {
             // there is no internet internet
@@ -82,7 +85,7 @@ class FoodlistFragment : Fragment() {
                         itemList.add(restaurant)
 
 
-                        val recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
+                         recyclerAdapter = FoodlistRecyclerAdapter(activity as Context, itemList)
 
                         binding.recyclerView.adapter = recyclerAdapter
                         binding.recyclerView.layoutManager = layoutManager
@@ -115,5 +118,21 @@ class FoodlistFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if(id == R.id.sort_menu) {
+            itemList.sortWith { restaurant1, restaurant2 ->
+                restaurant1.rating.compareTo(restaurant2.rating, true)
+            }
+            itemList.reverse()
+
+            recyclerAdapter.notifyDataSetChanged()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
