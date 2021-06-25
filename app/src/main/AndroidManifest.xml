@@ -13,25 +13,39 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodBunny">
-        <activity android:name=".activity.SetPasswordActivity"></activity>
+        <activity android:name=".activity.SetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"></activity>
         <activity
             android:name=".activity.RestaurantActivity"
-            android:theme="@style/Theme.FoodBunny.NoActionBar" />
+            android:theme="@style/Theme.FoodBunny.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/Theme.FoodBunny.NoActionBar" />
+            android:theme="@style/Theme.FoodBunny.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".activity.ForgotPasswordActivity"
-            android:theme="@style/Theme.FoodBunny.NoActionBar" />
+            android:theme="@style/Theme.FoodBunny.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".activity.RegisterActivity"
-            android:theme="@style/Theme.FoodBunny.NoActionBar" />
+            android:theme="@style/Theme.FoodBunny.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".activity.LoginActivity"
-            android:theme="@style/Theme.FoodBunny.NoActionBar" />
+            android:theme="@style/Theme.FoodBunny.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

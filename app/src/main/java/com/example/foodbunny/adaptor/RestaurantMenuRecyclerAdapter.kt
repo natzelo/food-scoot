@@ -1,12 +1,16 @@
 package com.example.foodbunny.adaptor
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.AsyncTask
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.foodbunny.R
@@ -23,6 +27,8 @@ class RestaurantMenuRecyclerAdapter(val context: Context, private val itemList: 
         return RestaurantMenuViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: RestaurantMenuViewHolder, position: Int) {
         val food = itemList[position]
         holder.foodName.text = food.foodName
@@ -55,7 +61,8 @@ class RestaurantMenuRecyclerAdapter(val context: Context, private val itemList: 
                 }
 
                 holder.cartButton.text = "REMOVE"
-
+                holder.cartButton.setBackgroundColor(Color.YELLOW)
+                holder.cartButton.setTextColor(Color.BLACK)
             } else if(holder.cartButton.text == "REMOVE") {
                 val orderEntity = OrderDBAsyncTask(context, OrderEntity(restaurantId, "dummy"), 3).execute().get()
                 if(orderEntity == null) {
@@ -77,6 +84,9 @@ class RestaurantMenuRecyclerAdapter(val context: Context, private val itemList: 
                 OrderDBAsyncTask(context, newOrderEntity, 1).execute().get()
 
                 holder.cartButton.text = "ADD"
+                holder.cartButton.setBackgroundColor(holder.cartButton.context.getColor(R.color.app_orange))
+                holder.cartButton.setTextColor(Color.WHITE)
+
             }
         }
     }
