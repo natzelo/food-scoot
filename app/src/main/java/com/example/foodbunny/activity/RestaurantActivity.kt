@@ -33,6 +33,18 @@ class RestaurantActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onDestroy() {
+        Log.i("DEBUG", "On Destroy Called")
+        RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
+        super.onDestroy()
+    }
+
+    override fun onStop() {
+        Log.i("DEBUG", "On Stop Called")
+        RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
+        super.onStop()
+    }
+
     private fun openMenu(restaurantId: String){
         val bundle = Bundle()
         bundle.putString("restaurant_id",restaurantId)
