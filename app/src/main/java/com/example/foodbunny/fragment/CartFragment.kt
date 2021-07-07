@@ -2,13 +2,16 @@ package com.example.foodbunny.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
@@ -35,6 +38,13 @@ class CartFragment : Fragment() {
     private val orderList: ArrayList<Food> = arrayListOf()
 
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(context)
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,15 +58,15 @@ class CartFragment : Fragment() {
 
 
 
+
         restaurantId = arguments?.getString("restaurant_id") as String
         userId = sharedPreferences.getString("user_id", "").toString()
         Log.i("DEBUG", "cart user id is ${sharedPreferences.all}")
         Log.i("DEBUG", "cart user id is $userId")
-        Toast.makeText(activity, "Restaurant is $restaurantId", Toast.LENGTH_SHORT).show()
 
         val layoutManager = LinearLayoutManager(activity)
 
-        val orderEntity: OrderEntity = RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(activity as Context, OrderEntity(restaurantId as String, "dummy"), 3).execute().get()
+        val orderEntity: OrderEntity = RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(activity as Context, OrderEntity(restaurantId, "dummy"), 3).execute().get()
 
 
 

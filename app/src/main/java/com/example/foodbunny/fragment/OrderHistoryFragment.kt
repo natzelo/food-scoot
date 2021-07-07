@@ -21,6 +21,7 @@ import com.example.foodbunny.databinding.FragmentOrderHistoryBinding
 import com.example.foodbunny.model.Food
 import com.example.foodbunny.model.OrderHistory
 import com.google.gson.Gson
+import org.json.JSONException
 
 
 class OrderHistoryFragment : Fragment() {
@@ -33,6 +34,7 @@ class OrderHistoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentOrderHistoryBinding.inflate(layoutInflater)
+        binding.orderHistoryLoader.visibility = View.VISIBLE
         sharedPreferences = activity?.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)!!
 
         val userId = sharedPreferences.getString("user_id", "").toString()
@@ -40,44 +42,49 @@ class OrderHistoryFragment : Fragment() {
 
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener {
+                binding.orderHistoryLoader.visibility = View.GONE
+                try {
+                    val data = it.getJSONObject("data")
+                    if(data.getBoolean("success")) {
+                        val dataObj = data.getJSONArray("data")
+                        val orderList: ArrayList<OrderHistory> = arrayListOf()
+                        for (i in 0 until dataObj.length()) {
+                            val jsonOrderHistory = dataObj.getJSONObject(i)
+                            val foodList: ArrayList<Food> = arrayListOf()
+                            val foodJsonArray = jsonOrderHistory.getJSONArray("food_items")
+                            for(j in 0 until foodJsonArray.length()) {
+                                val foodJsonObj = foodJsonArray.getJSONObject(j)
+                                val food = Food(
+                                    foodJsonObj.getString("food_item_id"),
+                                    foodJsonObj.getString("name"),
+                                    foodJsonObj.getString("cost")
+                                )
+                                foodList.add(food)
+                            }
 
-                val data = it.getJSONObject("data")
-                if(data.getBoolean("success")) {
-                    val dataObj = data.getJSONArray("data")
-                    val orderList: ArrayList<OrderHistory> = arrayListOf()
-                    for (i in 0 until dataObj.length()) {
-                        val jsonOrderHistory = dataObj.getJSONObject(i)
-                        val foodList: ArrayList<Food> = arrayListOf()
-                        val foodJsonArray = jsonOrderHistory.getJSONArray("food_items")
-                        for(j in 0 until foodJsonArray.length()) {
-                            val foodJsonObj = foodJsonArray.getJSONObject(j)
-                            val food = Food(
-                                foodJsonObj.getString("food_item_id"),
-                                foodJsonObj.getString("name"),
-                                foodJsonObj.getString("cost")
+                            val orderHistory = OrderHistory(
+                                jsonOrderHistory.getString("restaurant_name"),
+                                jsonOrderHistory.getString("order_placed_at"),
+                                foodList
+
                             )
-                            foodList.add(food)
+
+                            orderList.add(orderHistory)
                         }
+                        val layoutManager = LinearLayoutManager(context)
+                        binding.orderHistoryRecycler.layoutManager = layoutManager
+                        binding.orderHistoryRecycler.adapter = OrderHistoryAdaptor(activity as Context, orderList)
+                        val dividerItemDecoration = DividerItemDecoration(binding.orderHistoryRecycler.context, layoutManager.orientation)
+                        binding.orderHistoryRecycler.addItemDecoration(dividerItemDecoration)
+                        Log.i("DEBUG", orderList.toString())
 
-                        val orderHistory = OrderHistory(
-                            jsonOrderHistory.getString("restaurant_name"),
-                            jsonOrderHistory.getString("order_placed_at"),
-                            foodList
-
-                        )
-
-                        orderList.add(orderHistory)
+                    } else {
+                        Toast.makeText(activity, "Something Went Wrong", Toast.LENGTH_SHORT).show()
                     }
-                    val layoutManager = LinearLayoutManager(context)
-                    binding.orderHistoryRecycler.layoutManager = layoutManager
-                    binding.orderHistoryRecycler.adapter = OrderHistoryAdaptor(activity as Context, orderList)
-                    val dividerItemDecoration = DividerItemDecoration(binding.orderHistoryRecycler.context, layoutManager.orientation)
-                    binding.orderHistoryRecycler.addItemDecoration(dividerItemDecoration)
-                    Log.i("DEBUG", orderList.toString())
-
-                } else {
+                } catch (e: JSONException) {
                     Toast.makeText(activity, "Something Went Wrong", Toast.LENGTH_SHORT).show()
                 }
+
 
 
         }, Response.ErrorListener {

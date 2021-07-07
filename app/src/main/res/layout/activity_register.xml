@@ -23,324 +23,90 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nameConstraint"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/register_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_bg"
-        android:padding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerHeading">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:paddingBottom="3dp"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="5dp">
-
-            <ImageView
-                android:id="@+id/personImg"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1"
-                android:baselineAlignBottom="false"
-                android:contentDescription="image of person"
-                app:srcCompat="@drawable/user" />
-
-            <EditText
-                android:id="@+id/register_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="center_vertical"
-                android:hint="Name"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/emailConstraint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_bg"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameConstraint">
+        app:layout_constraintTop_toBottomOf="@+id/registerHeading" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:paddingBottom="3dp"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="5dp">
-
-            <ImageView
-                android:id="@+id/FpEmailImg"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1"
-                android:baselineAlignBottom="false"
-                android:contentDescription="image of person"
-                app:srcCompat="@drawable/envelope" />
-
-            <EditText
-                android:id="@+id/register_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="center_vertical"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/phoneConstraint"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/register_email"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_bg"
-        android:padding="5dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textWebEmailAddress|textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailConstraint">
+        app:layout_constraintTop_toBottomOf="@+id/register_name" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:paddingBottom="3dp"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="5dp">
-
-            <ImageView
-                android:id="@+id/FpPhoneImg"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1"
-                android:baselineAlignBottom="false"
-                android:contentDescription="image of person"
-                app:srcCompat="@drawable/smartphone_grey" />
-
-            <EditText
-                android:id="@+id/register_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="center_vertical"
-                android:hint="Phone"
-                android:inputType="phone"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/addressConstraint"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/register_phone"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_bg"
-        android:padding="5dp"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="textPersonName|phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneConstraint">
+        app:layout_constraintTop_toBottomOf="@+id/register_email" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:paddingBottom="3dp"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="5dp">
-
-            <ImageView
-                android:id="@+id/pin"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1"
-                android:baselineAlignBottom="false"
-                android:contentDescription="image of person"
-                app:srcCompat="@drawable/pin" />
-
-            <EditText
-                android:id="@+id/register_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="center_vertical"
-                android:hint="Delivery Address"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/passwordConstraint"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/register_address"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_bg"
-        android:padding="5dp"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPersonName|textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressConstraint">
+        app:layout_constraintTop_toBottomOf="@+id/register_phone" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:paddingBottom="3dp"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="5dp">
-
-            <ImageView
-                android:id="@+id/padlock1"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1"
-                android:baselineAlignBottom="false"
-                android:contentDescription="image of person"
-                app:srcCompat="@drawable/padlock_grey" />
-
-            <EditText
-                android:id="@+id/register_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="center_vertical"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cPasswordConstraint"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/register_cfm_password"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_bg"
-        android:padding="5dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName|textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordConstraint">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:paddingBottom="3dp"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="5dp">
-
-            <ImageView
-                android:id="@+id/padlock2"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1"
-                android:baselineAlignBottom="false"
-                android:contentDescription="image of person"
-                app:srcCompat="@drawable/padlock_grey" />
-
-            <EditText
-                android:id="@+id/register_cfm_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="center_vertical"
-                android:hint="Confirm Password"
-                android:inputType="textPassword"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/register_address" />
 
     <Button
         android:id="@+id/register_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:includeFontPadding="true"
-        android:text="Register"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:backgroundTint="#00E1701A"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/cPasswordConstraint"
-        app:layout_constraintStart_toStartOf="@+id/cPasswordConstraint"
-        app:layout_constraintTop_toBottomOf="@+id/cPasswordConstraint"
-        app:rippleColor="@color/white"
-        app:strokeColor="@color/white"
-        app:strokeWidth="3dp" />
+        android:layout_marginTop="16dp"
+        android:text="Regsiter"
+        android:textColor="@color/app_orange"
+        app:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_password" />
+
+    <EditText
+        android:id="@+id/register_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPersonName|textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_cfm_password" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

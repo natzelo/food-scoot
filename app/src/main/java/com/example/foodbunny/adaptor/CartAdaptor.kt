@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodbunny.R
-import com.example.foodbunny.model.CartItem
 import com.example.foodbunny.model.Food
 
 class CartAdaptor(val context: Context, private  val itemList: ArrayList<Food>): RecyclerView.Adapter<CartAdaptor.CartViewHolder>() {

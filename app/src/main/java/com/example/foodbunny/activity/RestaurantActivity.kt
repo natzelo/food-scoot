@@ -1,5 +1,6 @@
 package com.example.foodbunny.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -27,10 +28,20 @@ class RestaurantActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
-        val intent = Intent(this@RestaurantActivity, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+        val dialog = AlertDialog.Builder(this@RestaurantActivity)
+        dialog.setTitle("Go back?")
+        dialog.setMessage("The cart will be cleared")
+        dialog.setPositiveButton("OK"){ _, _ ->
+            RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
+            val intent = Intent(this@RestaurantActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        dialog.setNegativeButton("CANCEL") { _, _ ->
+        }
+        dialog.create()
+        dialog.show()
+
     }
 
     override fun onDestroy() {
@@ -41,7 +52,6 @@ class RestaurantActivity : AppCompatActivity() {
 
     override fun onStop() {
         Log.i("DEBUG", "On Stop Called")
-        //RestaurantMenuRecyclerAdapter.OrderDBAsyncTask(this@RestaurantActivity, OrderEntity("dummy", "dummy"), 2).execute()
         super.onStop()
     }
 

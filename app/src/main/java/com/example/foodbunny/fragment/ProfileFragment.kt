@@ -31,7 +31,7 @@ class ProfileFragment : Fragment() {
             binding.personNumber.text = sharedPreferences.getString("mobile_number", "")
             binding.personEmail.text = sharedPreferences.getString("email", "")
             binding.personLocation.text = sharedPreferences.getString("address", "")
-            Toast.makeText(activity, " ID is ${sharedPreferences.getString("user_id", "")}", Toast.LENGTH_SHORT).show()
+
 
         }
 
